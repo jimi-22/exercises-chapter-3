@@ -12,7 +12,7 @@ import pytest
      ((4, 2), (10, 2, 4), (-6, 0, -4)))
     )
 def test_sub(a, b, difference):
-    assert Polynomial(a) - Polynomial(b) == Polynomial(difference)
+    assert Polynomial(tuple(a)) - Polynomial(tuple(b)) == Polynomial(tuple(difference))
 
 
 def test_sub_scalar():
