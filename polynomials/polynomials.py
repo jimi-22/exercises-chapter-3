@@ -133,12 +133,14 @@ class Polynomial:
     def __neg__(self):
         return Polynomial(tuple(-x for x in self.coefficients))
 
-
     def __sub__(self, other):
         if isinstance(other, Polynomial):
-            return self.__add__(other.__neg__())
+            common = min(self.degree(), other.degree()) + 1
+            coefs = tuple(a - b for a, b in zip(self.coefficients, other.coefficients))
+            coefs += self.coefficients[common:] + tuple(-b for b in other.coefficients[common:])
+            return Polynomial(coefs)
         elif isinstance(other, Number):
-            return self.__add__(- other)  # where - other is well defined
+            return Polynomial((self.coefficients[0] - other,) + self.coefficients[1:])
         else:
             return NotImplemented
 
